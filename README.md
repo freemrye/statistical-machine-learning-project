@@ -51,15 +51,17 @@ members = members.drop(['registration_init_time'], axis=1)
 songs_extra
 
 #deal with 'isrc' in songs_extra  \
-def isrc_to_year(isrc):  \
-\    if type(isrc) == str: 
+'''python
+def isrc_to_year(isrc):  
+    if type(isrc) == str: 
         if int(isrc[5:7]) > 17: 
             return 1900 + int(isrc[5:7]) 
         else: 
             return 2000 + int(isrc[5:7]) 
     else: 
         return np.nan 
-        
+      '''
+      
 songs_extra['song_year'] = songs_extra['isrc'].apply(isrc_to_year) \
 songs_extra.drop(['isrc', 'name'], axis = 1, inplace = True)
 
