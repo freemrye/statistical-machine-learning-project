@@ -45,14 +45,14 @@ members['registration_date'] = members['registration_init_time'].apply(lambda x:
 
 members['expiration_year'] = members['expiration_date'].apply(lambda x: int(str(x)[0:4])) \
 members['expiration_month'] = members['expiration_date'].apply(lambda x: int(str(x)[4:6])) \
-members['expiration_date'] = members['expiration_date'].apply(lambda x: int(str(x)[6:8])) 
+members['expiration_date'] = members['expiration_date'].apply(lambda x: int(str(x)[6:8]))  \
 members = members.drop(['registration_init_time'], axis=1)
 
 songs_extra
 
-#deal with 'isrc' in songs_extra 
-def isrc_to_year(isrc): 
-    if type(isrc) == str: 
+#deal with 'isrc' in songs_extra  \
+def isrc_to_year(isrc):  \
+\    if type(isrc) == str: 
         if int(isrc[5:7]) > 17: 
             return 1900 + int(isrc[5:7]) 
         else: 
