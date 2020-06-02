@@ -1,11 +1,11 @@
 # statistical-machine-learning-project  Yixin Ye
 
-#import package
+### import package
 import numpy as np
 import pandas as pd
 import lightgbm as lgb
 
-#import data
+### import data
 data_path = 'E:/FinTech/Statistical machine learning/CourseProject/music recommendation/'
 train = pd.read_csv(data_path + 'train.csv', dtype={'msno' : 'category','source_system_tab' : 'category',
                                                     'source_screen_name' : 'category','source_type' : 'category',
@@ -24,7 +24,7 @@ print(train.shape)
 print(train['msno'].value_counts())
 
 
-#data mining
+### data mining
 #merge data
 song_cols = ['song_id', 'artist_name', 'genre_ids', 'song_length', 'language']
 train = train.merge(songs[song_cols], on='song_id', how='left')
@@ -33,7 +33,7 @@ test = test.merge(songs[song_cols], on='song_id', how='left')
 train.head()
 
 
-# deal with 'time' in members
+#deal with 'time' in members
 members['registration_year'] = members['registration_init_time'].apply(lambda x: int(str(x)[0:4]))
 members['registration_month'] = members['registration_init_time'].apply(lambda x: int(str(x)[4:6]))
 members['registration_date'] = members['registration_init_time'].apply(lambda x: int(str(x)[6:8]))
@@ -45,7 +45,7 @@ members = members.drop(['registration_init_time'], axis=1)
 
 songs_extra
 
-# deal with 'isrc' in songs_extra
+#deal with 'isrc' in songs_extra
 def isrc_to_year(isrc):
     if type(isrc) == str:
         if int(isrc[5:7]) > 17:
@@ -76,7 +76,7 @@ for col in train.columns:
 X = train.drop(['target'], axis=1)
 y = train['target'].values
 
-
+### Train the model
 #split the data into training set and test set
 X_train = X[:5000000]
 y_train = y[:5000000]
@@ -100,7 +100,7 @@ params['metric'] = 'auc'
 model = lgb.train(params, train_set=d_train, num_boost_round=2000, valid_sets=[d_val], \
 verbose_eval=100)
 
-#making prediction
+### making prediction
 p_test = model.predict(X_test)
 submission = pd.DataFrame()
 submission['id'] = ids
